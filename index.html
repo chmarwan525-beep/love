@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Love Story 💙</title>
+
+<style>
+body{
+  margin:0;
+  min-height:100vh;
+  background:linear-gradient(135deg,#0a3d62,#1e90ff);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Arial,sans-serif;
+  direction:rtl;
+  overflow:hidden;
+}
+.box{
+  background:rgba(255,255,255,0.15);
+  padding:24px;
+  border-radius:25px;
+  text-align:center;
+  backdrop-filter:blur(10px);
+  width:90%;
+  max-width:360px;
+  z-index:2;
+}
+h2{color:#fff;font-size:20px}
+input{
+  width:100%;
+  padding:12px;
+  border-radius:20px;
+  border:none;
+  text-align:center;
+  margin-top:15px;
+  font-size:16px;
+}
+button{
+  margin-top:15px;
+  padding:8px 22px;
+  border-radius:20px;
+  border:none;
+  background:pink;
+  font-size:15px;
+  cursor:pointer;
+}
+.message{
+  color:#fff;
+  font-size:16px;
+  line-height:2;
+  white-space:pre-line;
+}
+
+/* 🌷 الوردة الكبيرة النابضة */
+.big-rose{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:90px;
+  animation:pulse 1.6s infinite;
+  z-index:1000; /* فوق كل شيء */
+}
+@keyframes pulse{
+  0%{transform:translate(-50%,-50%) scale(1)}
+  50%{transform:translate(-50%,-50%) scale(1.2)}
+  100%{transform:translate(-50%,-50%) scale(1)}
+}
+
+/* 🌸 الورد المتساقط (خلف الوردة) */
+.flower{
+  position:absolute;
+  top:-50px;
+  font-size:24px;
+  animation:fall linear infinite;
+  z-index:1; /* خلف الوردة */
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg)}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop preload="auto"></audio>
+
+<div class="box" id="login">
+  <h2>💙 أدخل كلمة السر 💙</h2>
+  <input id="password" placeholder="كلمة السر">
+  <button onclick="check()">دخول</button>
+</div>
+
+<script>
+const correctPassword = "2/28";
+
+const messageText = `
+روانتيييييي ☝🏻🙃🙃🙃🙃
+
+وردتي، أمورتي،
+أحلى حاجة صراتلي 💙
+ليوم كمل عام، إن شاء الله ما يكونش الأخير،
+مازال عمر طويل إن شاء الله.
+
+ديما مع بعض سعدين ☝🏻😗
+اليوم هو اليوم لي وليتي فيه
+جزء من حياتي، تؤبريني 🤍
+
+معرفتش واش نقول لخر،
+إن شاء الله تكون عجبتك ☝🏻🙃🙃🙃
+`;
+
+let i = 0;
+
+function check(){
+  if(document.getElementById("password").value === correctPassword){
+
+    const music=document.getElementById("music");
+    music.src="https://cdn.pixabay.com/audio/2022/10/25/audio_7b1c0c77c6.mp3";
+    music.play();
+
+    document.body.innerHTML=`
+      <div class="box" id="content">
+        <div class="message" id="typed"></div>
+        <button id="surpriseBtn" onclick="showRose()" style="display:none;">
+          👇 اضغط هنا
+        </button>
+      </div>
+    `;
+    typeWriter();
+  }else{
+    alert("كلمة السر خاطئة 💔");
+  }
+}
+
+/* ✨ كتابة تدريجية */
+function typeWriter(){
+  if(i < messageText.length){
+    document.getElementById("typed").innerHTML += messageText.charAt(i);
+    i++;
+    setTimeout(typeWriter,90);
+  }else{
+    /* يظهر الزر بعد انتهاء الكلام */
+    document.getElementById("surpriseBtn").style.display="inline-block";
+  }
+}
+
+/* 🌷 إظهار الوردة */
+function showRose(){
+  document.getElementById("content").remove();
+
+  const rose=document.createElement("div");
+  rose.className="big-rose";
+  rose.innerText="🌷";
+  document.body.appendChild(rose);
+
+  startFlowers();
+}
+
+/* 🌸 تساقط ورد بالخلفية فقط */
+function startFlowers(){
+  const flowers=["🌸","🌷","💮","🤍"];
+  setInterval(()=>{
+    const f=document.createElement("div");
+    f.className="flower";
+    f.innerText=flowers[Math.floor(Math.random()*flowers.length)];
+    f.style.left=Math.random()*100+"vw";
+    f.style.animationDuration=3+Math.random()*3+"s";
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),7000);
+  },220);
+}
+</script>
+
+</body>
+</html>
