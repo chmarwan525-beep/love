@@ -20,6 +20,7 @@ body{
 
 /* صندوق الرسالة */
 .box{
+  position:relative;
   background:rgba(255,255,255,0.15);
   padding:24px;
   border-radius:25px;
@@ -27,8 +28,7 @@ body{
   backdrop-filter:blur(10px);
   width:90%;
   max-width:360px;
-  z-index:10; /* فوق الورد الخلفي */
-  position:relative;
+  z-index:10; /* فوق الورد */
 }
 
 h2{color:#fff;font-size:20px}
@@ -66,11 +66,10 @@ button{
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
-  font-size:100px;
+  font-size:90px;
   animation:pulse 1.6s infinite;
-  z-index:100; /* أعلى شيء */
+  z-index:100;
 }
-
 @keyframes pulse{
   0%{transform:translate(-50%,-50%) scale(1)}
   50%{transform:translate(-50%,-50%) scale(1.2)}
@@ -80,13 +79,13 @@ button{
 /* 🌸 الورد المتساقط (خلف الرسالة) */
 .flower{
   position:fixed;
-  top:-50px;
+  top:-40px;
   font-size:24px;
   animation:fall linear infinite;
-  z-index:5; /* خلف الصندوق */
+  z-index:2;
   pointer-events:none;
+  opacity:0.9;
 }
-
 @keyframes fall{
   to{transform:translateY(110vh) rotate(360deg)}
 }
@@ -95,7 +94,7 @@ button{
 
 <body>
 
-<audio id="music" loop></audio>
+<audio id="music" loop preload="auto"></audio>
 
 <div class="box" id="login">
   <h2>💙 أدخل كلمة السر 💙</h2>
@@ -107,16 +106,17 @@ button{
 const correctPassword = "02/28";
 
 const messageText = `
-روانتيييييي ☝🏻 🙃 🙃 🙃 🙃 🙃
+روانتيييييي ☝🏻🙃🙃🙃🙃🙃
 
-فات عام، كل عام وحنا بخير،
-ديما سعيدين وديما مع بعض.
-إن شاء الله هذا العام لول مش لخر.
+فات عام، كل عام وحنا بخير 💙
+ديما سعيدين، ديما مع بعض،
+إن شاء الله هذا العام لول
+وما يكونش الأخير.
 
-حبيت نقلك بلي هذا أجمل عام،
-وهذا أجمل نهار،
+حبيت نقلك بلي هذا
+أجمل عام وأجمل نهار
 لأنك دخلتي فيه انتي لحياتي
-وليتي جزء منها، تؤبريني 🙃 🙃 🙃
+ووليتي جزء منها، تؤبريني 🤍
 
 إن شاء الله تكون عجبتك ☝🏻🙃🙃🙃🙃🙃
 `;
@@ -124,8 +124,9 @@ const messageText = `
 let i = 0;
 
 function check(){
-  if(password.value === correctPassword){
+  if(document.getElementById("password").value === correctPassword){
 
+    const music=document.getElementById("music");
     music.src="https://cdn.pixabay.com/audio/2022/10/25/audio_7b1c0c77c6.mp3";
     music.play();
 
@@ -137,23 +138,26 @@ function check(){
         </button>
       </div>
     `;
+
+    startFlowers(); // يبدأ الورد من البداية
     typeWriter();
-    startFlowers(); // يبدأ الورد مباشرة بالخلفية
   }else{
     alert("كلمة السر خاطئة 💔");
   }
 }
 
+/* ✨ كتابة تدريجية */
 function typeWriter(){
   if(i < messageText.length){
-    typed.innerHTML += messageText.charAt(i);
+    document.getElementById("typed").innerHTML += messageText.charAt(i);
     i++;
-    setTimeout(typeWriter,80);
+    setTimeout(typeWriter,90);
   }else{
-    surpriseBtn.style.display="inline-block";
+    document.getElementById("surpriseBtn").style.display="inline-block";
   }
 }
 
+/* 🌷 إظهار الوردة */
 function showRose(){
   document.getElementById("content").remove();
 
@@ -163,18 +167,18 @@ function showRose(){
   document.body.appendChild(rose);
 }
 
-/* الورد الخلفي */
+/* 🌸 تساقط الورد بالخلف */
 function startFlowers(){
-  const flowers=["🌸","🌷","💮","🤍"];
+  const flowers=["🌷","🌸","💮","🤍"];
   setInterval(()=>{
     const f=document.createElement("div");
     f.className="flower";
     f.innerText=flowers[Math.floor(Math.random()*flowers.length)];
     f.style.left=Math.random()*100+"vw";
-    f.style.animationDuration=3+Math.random()*3+"s";
+    f.style.animationDuration=(4+Math.random()*3)+"s";
     document.body.appendChild(f);
-    setTimeout(()=>f.remove(),7000);
-  },250);
+    setTimeout(()=>f.remove(),8000);
+  },300);
 }
 </script>
 
