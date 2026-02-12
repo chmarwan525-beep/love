@@ -38,18 +38,10 @@ input,button{
   text-align:center;
 }
 button{background:pink;cursor:pointer}
-.message{
-  color:#fff;
-  line-height:2;
-  white-space:pre-line;
-}
-.counter{
-  margin-top:15px;
-  color:#ffebf0;
-  font-size:15px;
-}
+.message{color:#fff;line-height:2;white-space:pre-line}
+.counter{color:#ffebf0;margin-top:15px;font-size:15px}
 
-/* 🌸 الورد المتساقط خلف الرسالة */
+/* 🌸 ورد متساقط خلف الرسالة */
 .flower{
   position:fixed;
   top:-40px;
@@ -61,7 +53,7 @@ button{background:pink;cursor:pointer}
   to{transform:translateY(110vh) rotate(360deg)}
 }
 
-/* 🌷 الوردة الكبيرة */
+/* 🌷 وردة كبيرة نابضة */
 .big-rose{
   position:fixed;
   top:50%;
@@ -118,11 +110,10 @@ function check(){
     document.body.innerHTML = `
       <div class="box" id="content">
         <div class="message" id="typed"></div>
-        <div class="counter" id="counter"></div>
         <button id="btn" style="display:none" onclick="showRose()">👇 اضغط هنا</button>
       </div>
     `;
-    startFlowers();   // الورد يبدأ مباشرة
+    startFlowers();   // الورد يبدأ خلف الرسالة
     typeWriter();
   }else{
     alert("كلمة السر خاطئة 💔");
@@ -136,12 +127,26 @@ function typeWriter(){
     setTimeout(typeWriter,90);
   }else{
     btn.style.display = "block";
-    startCounter();
   }
 }
 
-/* ⏱️ عداد حي منذ التعارف */
-function startCounter(){
+/* 🌷 بعد الضغط: وردة + عداد */
+function showRose(){
+  document.getElementById("content").remove();
+
+  const rose = document.createElement("div");
+  rose.className = "big-rose";
+  rose.innerText = "🌷";
+  document.body.appendChild(rose);
+
+  const counter = document.createElement("div");
+  counter.className = "counter";
+  counter.style.position = "fixed";
+  counter.style.bottom = "15%";
+  counter.style.textAlign = "center";
+  counter.style.width = "100%";
+  document.body.appendChild(counter);
+
   setInterval(()=>{
     const now = new Date();
     let diff = Math.floor((now - startDate) / 1000);
@@ -158,15 +163,6 @@ function startCounter(){
       ${days} يوم • ${hours} ساعة • ${minutes} دقيقة • ${seconds} ثانية
     `;
   },1000);
-}
-
-/* 🌷 مفاجأة */
-function showRose(){
-  content.remove();
-  const rose = document.createElement("div");
-  rose.className = "big-rose";
-  rose.innerText = "🌷";
-  document.body.appendChild(rose);
 }
 
 /* 🌸 الورد بالخلفية */
