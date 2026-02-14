@@ -55,12 +55,6 @@ button{
   white-space:pre-line;
 }
 
-.counter{
-  color:#0a3d62;
-  font-size:15px;
-  text-align:center;
-}
-
 /* الورد المتساقط */
 .flower{
   position:fixed;
@@ -87,12 +81,11 @@ button{
 /* النص تحت الصورة */
 .caption{
   position:fixed;
-  top:55%;
+  top:58%;
   width:100%;
   text-align:center;
   color:#0a3d62;
   font-size:15px;
-  z-index:3;
 }
 </style>
 </head>
@@ -107,20 +100,14 @@ button{
 
 <script>
 const correctPassword = "08/17";
-const startDate = new Date("2025-02-28T00:00:00");
 
 const messageText = `
 روانتيييييي ☝🏻🙃🙃🙃🙃🙃
 كي تشوفي هذا رسالة تسما
-فات اشمل واحلى عام في حياة مروان ان شاء الله كل عام وحنا بخير 🫶🏻
+فات اشمل واحلى عام في حياة مروان
+إن شاء الله كل عام وحنا بخير 🫶🏻
 ديما سعيدين، ديما مع بعض،
-إن شاء الله هذا العام لول
 وما يكونش الأخير.
-نبقاو حتى نعقد ليث ☝🏻😔😂
-حبيت نقلك بلي هذا
-أجمل عام وأجمل نهار
-لأنك دخلتي لحياتي
-ووليتي جزء منها 🤍
 `;
 
 let i = 0;
@@ -143,53 +130,28 @@ function check(){
 function typeWriter(){
   if(i < messageText.length){
     typed.innerHTML += messageText.charAt(i++);
-    setTimeout(typeWriter,90);
+    setTimeout(typeWriter,80);
   }else{
     btn.style.display = "block";
   }
 }
 
-/* بعد الضغط */
 function showFinal(){
   document.getElementById("content").remove();
 
   const img = document.createElement("img");
-  img.src = "flower.png"; // اسم الصورة
+  img.src = "flower.jpg"; // ← الصورة
   img.className = "final-image";
   document.body.appendChild(img);
 
-  const text = document.createElement("div");
-  text.className = "caption";
-  text.innerText = "رسمتها من البي على جالك ☝🏻😔";
-  document.body.appendChild(text);
-
-  const counter = document.createElement("div");
-  counter.className = "counter";
-  counter.style.position = "fixed";
-  counter.style.bottom = "12%";
-  counter.style.width = "100%";
-  document.body.appendChild(counter);
-
-  setInterval(()=>{
-    const now = new Date();
-    let diff = Math.floor((now - startDate)/1000);
-    const d = Math.floor(diff/86400);
-    diff%=86400;
-    const h = Math.floor(diff/3600);
-    diff%=3600;
-    const m = Math.floor(diff/60);
-    const s = diff%60;
-
-    counter.innerHTML = `
-      أجمل أيامي بدأت منذ 🤍<br>
-      ${d} يوم • ${h} ساعة • ${m} دقيقة • ${s} ثانية
-    `;
-  },1000);
+  const caption = document.createElement("div");
+  caption.className = "caption";
+  caption.innerText = "رسمتها من البي على جالك ☝🏻😔";
+  document.body.appendChild(caption);
 }
 
-/* الورد */
 function startFlowers(){
-  const flowers = ["🌸","🌷","🌼","💐"];
+  const flowers = ["🌸","🌷","💐","⭐"];
   setInterval(()=>{
     const f=document.createElement("div");
     f.className="flower";
